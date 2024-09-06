@@ -1,0 +1,27 @@
+.custom-card-todo .ant-card-head {
+  background-color: #8a30e5;
+  text-align: center;
+}
+.custom-card-todo .ant-card-head-title {
+  color: #e6f7ff;
+}
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+.custom-card-inprogress .ant-card-head {
+  background-color: #ffc14e;
+  text-align: center;
+}
+.custom-card-inprogress .ant-card-head-title {
+  color: black;
+}
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+.custom-card-completed .ant-card-head {
+  background-color: #06c270;
+  text-align: center;
+}
+.custom-card-completed .ant-card-head-title {
+  color: #e6f7ff;
+}
