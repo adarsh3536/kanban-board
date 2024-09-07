@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Row } from "antd";
+import { Row } from "antd";
 import ToDo from "./ToDo";
 import InProgress from "./InProgress";
 import Completed from "./Completed";

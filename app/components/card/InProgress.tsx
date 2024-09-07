@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row } from "antd";
 import "./CardsStyle.css";
+import Task from "../task/Task";
 
 const InProgress: React.FC = () => (
   <Col span={6}>
@@ -9,7 +10,9 @@ const InProgress: React.FC = () => (
       bordered={false}
       className="custom-card-inprogress"
     >
-      <div></div>
+      <div>
+        <Task />
+      </div>
     </Card>
   </Col>
 );

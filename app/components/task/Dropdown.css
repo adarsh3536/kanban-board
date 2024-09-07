@@ -1,0 +1,15 @@
+.custom-dropdown-body .ant-card-body {
+  padding: 0;
+  margin: 0;
+}
+
+.custom-dropdown-color .ant-card-head {
+  background-color: #e4ecff;
+  padding-right: 80px;
+  padding-top: -40px;
+}
+
+.custom-dropdown-color .ant-card-head-title {
+  color: black;
+  font-size: 18px;
+}
