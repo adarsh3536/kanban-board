@@ -33,7 +33,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
       setDropdownOpen(false);
     }
-
+  };
 
   const handleDelete = async () => {
     await removeTask(task.id, task.status);
