@@ -1,5 +1,3 @@
-// app/components/modal/ModalForm.tsx
-
 import React from "react";
 import { useFormData } from "@/app/contexts/FormDataContext";
 
@@ -158,7 +156,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
               status: "",
               priority: "",
             });
-            closeModal(); // Close on cancel
+            closeModal();
           }}
         >
           Cancel

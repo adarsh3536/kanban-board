@@ -1,5 +1,3 @@
-// app/component/task/Dropdown.tsx
-
 import { Card } from "antd";
 import React from "react";
 import "./Dropdown.css";

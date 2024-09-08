@@ -1,5 +1,3 @@
-// app/components/card/ToDo.tsx
-
 import React from "react";
 import { Card, Col } from "antd";
 import Task from "../task/Task";
