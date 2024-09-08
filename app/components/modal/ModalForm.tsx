@@ -25,7 +25,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.date || !formData.status) {
       alert("Please fill in all required fields");
@@ -33,7 +33,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
     }
 
     const newTask = { ...formData, id: Date.now().toString() } as Task;
-    addTask(newTask);
+    await addTask(newTask);
 
     setFormData({
       title: "",

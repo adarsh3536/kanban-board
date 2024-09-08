@@ -16,27 +16,27 @@ interface TaskProps {
 
 const Task: React.FC<TaskProps> = ({ task }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const { addTask, removeTask } = useFormData();
+  const { addTask, removeTask, updateTask } = useFormData();
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-  const handleStatusChange = (status: string) => {
+  const handleStatusChange = async (status: string) => {
     if (status !== task.status) {
       // Remove task from current status list
-      removeTask(task.id, task.status);
+      await removeTask(task.id, task.status);
 
       // Update task status
       const updatedTask = { ...task, status };
 
       // Add task to new status list
-      addTask(updatedTask);
+      await addTask(updatedTask);
 
       setDropdownOpen(false);
     }
   };
 
-  const handleDelete = () => {
-    removeTask(task.id, task.status);
+  const handleDelete = async () => {
+    await removeTask(task.id, task.status);
   };
 
   // Define styles based on priority
