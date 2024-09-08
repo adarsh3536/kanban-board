@@ -1,5 +1,3 @@
-// app/components/card/InProgress.tsx
-
 import React from "react";
 import { Card, Col } from "antd";
 import Task from "../task/Task";
