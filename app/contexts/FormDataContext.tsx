@@ -1,6 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+// app/contexts/FormDataContext.tsx
 
-interface FormData {
+import React, { createContext, useContext, useState } from "react";
+
+interface Task {
+  id: string;
   title: string;
   description: string;
   date: string;
@@ -8,35 +11,47 @@ interface FormData {
   priority: string;
 }
 
-interface Task extends FormData {
-  id: string; // Add an id to uniquely identify tasks
-}
-
 interface FormDataContextType {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  tasks: Task[]; // List of tasks
-  addTask: (task: Task) => void; // Method to add a task
+  formData: Partial<Task>;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<Task>>>;
+  tasks: { [key: string]: Task[] };
+  addTask: (task: Task) => void;
 }
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
   undefined
 );
 
-export const FormDataProvider: React.FC<{ children: ReactNode }> = ({
+export const useFormData = () => {
+  const context = useContext(FormDataContext);
+  if (!context) {
+    throw new Error("useFormData must be used within a FormDataProvider");
+  }
+  return context;
+};
+
+export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Partial<Task>>({
     title: "",
     description: "",
     date: "",
     status: "",
     priority: "",
   });
-  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [tasks, setTasks] = useState<{ [key: string]: Task[] }>({
+    Todo: [],
+    "In Progress": [],
+    Completed: [],
+  });
 
   const addTask = (task: Task) => {
-    setTasks([...tasks, task]);
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [task.status]: [...(prevTasks[task.status] || []), task],
+    }));
   };
 
   return (
@@ -44,12 +59,4 @@ export const FormDataProvider: React.FC<{ children: ReactNode }> = ({
       {children}
     </FormDataContext.Provider>
   );
-};
-
-export const useFormData = (): FormDataContextType => {
-  const context = useContext(FormDataContext);
-  if (!context) {
-    throw new Error("useFormData must be used within a FormDataProvider");
-  }
-  return context;
 };

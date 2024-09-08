@@ -1,3 +1,5 @@
+// app/components/modal/ModalForm.tsx
+
 import React from "react";
 import { useFormData } from "@/app/contexts/FormDataContext";
 
@@ -18,13 +20,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.title || !formData.date) {
+    if (!formData.title || !formData.date || !formData.status) {
       alert("Please fill in all required fields");
       return;
     }
 
-    // Create a new task
-    const newTask = { ...formData, id: Date.now().toString() };
+    const newTask = { ...formData, id: Date.now().toString() } as Task;
     addTask(newTask);
 
     setFormData({
