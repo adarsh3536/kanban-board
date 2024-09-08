@@ -1,6 +1,5 @@
-// app/component/task/Task.tsx
-
 import React from "react";
+import { FaTrash } from "react-icons/fa";
 import Dropdown from "./Dropdown";
 import { useFormData } from "@/app/contexts/FormDataContext";
 
@@ -36,6 +35,10 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     }
   };
 
+  const handleDelete = () => {
+    removeTask(task.id, task.status);
+  };
+
   return (
     <div className="relative max-w-md mx-auto bg-white border border-black rounded-2xl overflow-visible mb-6">
       <div className="p-4">
@@ -43,6 +46,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           <p className="text-xs font-normal bg-red-200 text-red-600 rounded-md px-3 py-1 inline-block">
             {task.priority}
           </p>
+          <button
+            onClick={handleDelete}
+            className="ml-2 text-red-600 hover:text-red-800"
+            aria-label="Delete Task"
+            // style={{ paddingLeft: "11.2rem" }}
+          >
+            <FaTrash size={16} />
+          </button>
           <div className="relative flex items-center mt-2">
             <span className="absolute left-0 top-0 h-full w-0.5 bg-purple-600 transform -translate-x-1 z-10"></span>
             <h2 className="text-xl font-bold pl-2 pr-2 flex-1">
@@ -56,7 +67,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
               >
                 &#9013;
               </button>
-              {dropdownOpen && <Dropdown onStatusChange={handleStatusChange} />}
+
+              {dropdownOpen && (
+                <Dropdown
+                  onStatusChange={handleStatusChange}
+                  onDelete={handleDelete}
+                />
+              )}
             </div>
           </div>
         </div>
