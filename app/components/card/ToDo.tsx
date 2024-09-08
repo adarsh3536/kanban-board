@@ -8,7 +8,6 @@ const ToDo: React.FC = () => (
     <Card title="TODO" bordered={false} className="custom-card-todo mb-16">
       <div className="sub-card">
         <Task />
-        <Task />
       </div>
     </Card>
   </Col>

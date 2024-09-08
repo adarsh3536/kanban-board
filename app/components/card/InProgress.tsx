@@ -10,9 +10,7 @@ const InProgress: React.FC = () => (
       bordered={false}
       className="custom-card-inprogress"
     >
-      <div>
-        <Task />
-      </div>
+      <div>{/* <Task /> */}</div>
     </Card>
   </Col>
 );

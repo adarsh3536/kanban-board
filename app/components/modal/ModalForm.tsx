@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormData } from "@/app/contexts/FormDataContext";
 
 interface ModalFormProps {
   closeModal: () => void;
 }
 
 const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    date: "",
-    status: "",
-    priority: "",
-  });
+  const { formData, setFormData } = useFormData(); // Correctly destructuring object properties
 
-  // Form change handler
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -22,14 +16,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Form submit handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.date) {
       alert("Please fill in all required fields");
       return;
     }
-    // Handle form submission logic
     console.log("Form Submitted: ", formData);
     closeModal(); // Close modal after form submission
   };
