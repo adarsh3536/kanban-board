@@ -3,6 +3,15 @@
 import React from "react";
 import { useFormData } from "@/app/contexts/FormDataContext";
 
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  status: string;
+  priority: string;
+}
+
 interface ModalFormProps {
   closeModal: () => void;
 }

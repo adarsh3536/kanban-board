@@ -20,6 +20,7 @@ const Dropdown: React.FC<DropdownProps> = ({ onStatusChange }) => {
       <Card
         title="Change Status"
         className="custom-dropdown-body custom-dropdown-color"
+        // style={{ backgroundColor: "lightSkyBlue" }}
       ></Card>
       <div className="p-2">
         <div className="space-y-2">
