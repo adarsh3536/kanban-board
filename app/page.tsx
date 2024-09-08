@@ -1,5 +1,7 @@
 "use client";
 
+"use client";
+
 import React from "react";
 import Cards from "@/app/components/card/Cards";
 import ModalComponent from "./components/modal/ModalComponent";
