@@ -1,11 +1,17 @@
 import React from "react";
 import Dropdown from "./Dropdown";
-import { useFormData } from "@/app/contexts/FormDataContext";
 
-const Task: React.FC = () => {
-  const { formData } = useFormData();
+interface TaskProps {
+  task: {
+    title: string;
+    description: string;
+    date: string;
+    priority: string;
+  };
+}
+
+const Task: React.FC<TaskProps> = ({ task }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
-
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   return (
@@ -13,12 +19,12 @@ const Task: React.FC = () => {
       <div className="p-4">
         <div className="">
           <p className="text-xs font-normal bg-red-200 text-red-600 rounded-md px-3 py-1 inline-block">
-            {formData.priority}
+            {task.priority}
           </p>
           <div className="relative flex items-center mt-2">
             <span className="absolute left-0 top-0 h-full w-0.5 bg-purple-600 transform -translate-x-1 z-10"></span>
             <h2 className="text-xl font-bold pl-2 pr-2 flex-1">
-              {formData.title || "Task Title"}
+              {task.title || "Task Title"}
             </h2>
             <div className="relative">
               <button
@@ -33,11 +39,11 @@ const Task: React.FC = () => {
           </div>
         </div>
         <p className="text-gray-500 font-normal leading-4 ml-2">
-          {formData.description || "No description provided"}
+          {task.description || "No description provided"}
         </p>
         <hr className="my-4 border-gray-300" />
         <p className="text-start text-gray-500 font-normal">
-          📆 {formData.date || "No date selected"}
+          📆 {task.date || "No date selected"}
         </p>
       </div>
     </div>

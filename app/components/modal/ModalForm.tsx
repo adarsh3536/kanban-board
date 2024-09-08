@@ -6,7 +6,7 @@ interface ModalFormProps {
 }
 
 const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
-  const { formData, setFormData } = useFormData(); // Correctly destructuring object properties
+  const { formData, setFormData, addTask } = useFormData();
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -22,7 +22,18 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal }) => {
       alert("Please fill in all required fields");
       return;
     }
-    console.log("Form Submitted: ", formData);
+
+    // Create a new task
+    const newTask = { ...formData, id: Date.now().toString() };
+    addTask(newTask);
+
+    setFormData({
+      title: "",
+      description: "",
+      date: "",
+      status: "",
+      priority: "",
+    });
     closeModal(); // Close modal after form submission
   };
 

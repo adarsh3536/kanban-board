@@ -8,9 +8,15 @@ interface FormData {
   priority: string;
 }
 
+interface Task extends FormData {
+  id: string; // Add an id to uniquely identify tasks
+}
+
 interface FormDataContextType {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  tasks: Task[]; // List of tasks
+  addTask: (task: Task) => void; // Method to add a task
 }
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
@@ -27,9 +33,14 @@ export const FormDataProvider: React.FC<{ children: ReactNode }> = ({
     status: "",
     priority: "",
   });
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const addTask = (task: Task) => {
+    setTasks([...tasks, task]);
+  };
 
   return (
-    <FormDataContext.Provider value={{ formData, setFormData }}>
+    <FormDataContext.Provider value={{ formData, setFormData, tasks, addTask }}>
       {children}
     </FormDataContext.Provider>
   );
