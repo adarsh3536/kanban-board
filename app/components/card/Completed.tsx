@@ -13,7 +13,7 @@ const Completed: React.FC = () => {
       <Card
         title="COMPLETED"
         bordered={false}
-        className="custom-card-completed"
+        className="custom-card-completed mb-16"
       >
         {tasks.Completed.length > 0 ? (
           tasks.Completed.map((task) => (

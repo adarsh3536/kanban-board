@@ -16,6 +16,7 @@ interface FormDataContextType {
   setFormData: React.Dispatch<React.SetStateAction<Partial<Task>>>;
   tasks: { [key: string]: Task[] };
   addTask: (task: Task) => void;
+  removeTask: (taskId: string, status: string) => void;
 }
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
@@ -54,8 +55,17 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const removeTask = (taskId: string, status: string) => {
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [status]: prevTasks[status].filter((task) => task.id !== taskId),
+    }));
+  };
+
   return (
-    <FormDataContext.Provider value={{ formData, setFormData, tasks, addTask }}>
+    <FormDataContext.Provider
+      value={{ formData, setFormData, tasks, addTask, removeTask }}
+    >
       {children}
     </FormDataContext.Provider>
   );

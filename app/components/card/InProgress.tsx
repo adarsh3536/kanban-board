@@ -13,7 +13,7 @@ const InProgress: React.FC = () => {
       <Card
         title="IN PROGRESS"
         bordered={false}
-        className="custom-card-inprogress"
+        className="custom-card-inprogress mb-16"
       >
         {tasks["In Progress"].length > 0 ? (
           tasks["In Progress"].map((task) => (

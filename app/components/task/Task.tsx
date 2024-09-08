@@ -1,23 +1,45 @@
+// app/component/task/Task.tsx
+
 import React from "react";
 import Dropdown from "./Dropdown";
+import { useFormData } from "@/app/contexts/FormDataContext";
 
 interface TaskProps {
   task: {
+    id: string;
     title: string;
     description: string;
     date: string;
+    status: string;
     priority: string;
   };
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const { tasks, addTask, removeTask } = useFormData();
+
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  const handleStatusChange = (status: string) => {
+    if (status !== task.status) {
+      // Remove task from current status list
+      removeTask(task.id, task.status);
+
+      // Update task status
+      const updatedTask = { ...task, status };
+
+      // Add task to new status list
+      addTask(updatedTask);
+
+      setDropdownOpen(false);
+    }
+  };
 
   return (
     <div className="relative max-w-md mx-auto bg-white border border-black rounded-2xl overflow-visible mb-6">
       <div className="p-4">
-        <div className="">
+        <div>
           <p className="text-xs font-normal bg-red-200 text-red-600 rounded-md px-3 py-1 inline-block">
             {task.priority}
           </p>
@@ -34,7 +56,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
               >
                 &#9013;
               </button>
-              {dropdownOpen && <Dropdown />}
+              {dropdownOpen && <Dropdown onStatusChange={handleStatusChange} />}
             </div>
           </div>
         </div>
