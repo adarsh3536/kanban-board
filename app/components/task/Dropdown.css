@@ -3,13 +3,13 @@
   margin: 0;
 }
 
-.custom-dropdown-color .ant-card-head {
-  background-color: #e4ecff;
+.custom-dropdown-head .ant-card-head {
+  background-color: #e4ecff !important;
   padding-right: 80px;
   padding-top: -40px;
 }
 
-.custom-dropdown-color .ant-card-head-title {
-  color: black;
+.custom-dropdown-title .ant-card-head-title {
+  color: black !important;
   font-size: 18px;
 }

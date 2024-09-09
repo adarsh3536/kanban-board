@@ -16,7 +16,7 @@ interface TaskProps {
 
 const Task: React.FC<TaskProps> = ({ task }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const { addTask, removeTask, updateTask } = useFormData();
+  const { addTask, removeTask } = useFormData();
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -53,7 +53,22 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     }
   };
 
+  // Define styles based on status
+  const getStatusClasses = (status: string) => {
+    switch (status) {
+      case "Completed":
+        return "bg-green-600";
+      case "In Progress":
+        return "bg-yellow-500";
+      case "Todo":
+        return "bg-purple-600";
+      default:
+        return "bg-gray-600"; // Fallback for missing status
+    }
+  };
+
   const priorityClasses = getPriorityClasses(task.priority);
+  const statusBarClasses = getStatusClasses(task.status);
 
   return (
     <div className="relative max-w-md mx-auto bg-white border border-black rounded-2xl overflow-visible mb-6">
@@ -64,16 +79,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           >
             {task.priority || "No Priority"}
           </p>
-          <button
-            onClick={handleDelete}
-            className="ml-2 text-red-600 hover:text-red-800"
-            aria-label="Delete Task"
-          >
-            <FaTrash size={16} />
-          </button>
         </div>
         <div className="relative flex items-center mt-2">
-          <span className="absolute left-0 top-0 h-full w-0.5 bg-purple-600 transform -translate-x-1 z-10"></span>
+          <span
+            className={`absolute left-0 top-0 h-full w-0.5 transform -translate-x-1 z-10 ${statusBarClasses}`}
+          ></span>
           <h2 className="text-xl font-bold pl-2 pr-2 flex-1">
             {task.title || "Task Title"}
           </h2>
@@ -98,9 +108,18 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           {task.description || "No description provided"}
         </p>
         <hr className="my-4 border-gray-300" />
-        <p className="text-start text-gray-500 font-normal">
-          📆 {task.date || "No date selected"}
-        </p>
+        <div className="flex justify-between items-center">
+          <p className="text-gray-500 font-normal">
+            📆 {task.date || "No date selected"}
+          </p>
+          <button
+            onClick={handleDelete}
+            className="text-red-600 hover:text-red-800"
+            aria-label="Delete Task"
+          >
+            <FaTrash size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );

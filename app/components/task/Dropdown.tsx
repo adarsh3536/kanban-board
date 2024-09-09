@@ -17,8 +17,8 @@ const Dropdown: React.FC<DropdownProps> = ({ onStatusChange }) => {
     <div className="absolute right-0 top-full mt-2 bg-white border border-gray-300 shadow-lg rounded-xl w-56 overflow-visible z-10 ">
       <Card
         title="Change Status"
-        className="custom-dropdown-body custom-dropdown-color"
-        // style={{ backgroundColor: "lightSkyBlue" }}
+        className="custom-dropdown-body custom-dropdown-head custom-dropdown-title"
+        style={{ color: "black" }} // Inline style to set text color to black
       ></Card>
       <div className="p-2">
         <div className="space-y-2">

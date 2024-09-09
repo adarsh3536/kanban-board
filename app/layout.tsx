@@ -1,5 +1,4 @@
 import AppHeader from "@/app/components/header/AppHeader";
-import { Layout } from "antd";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "@next/font/google";
