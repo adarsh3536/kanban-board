@@ -28,7 +28,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
   const handleStatusChange = async (status: string) => {
     if (status !== task.status) {
-      await removeTask(task.id, task.status); // Correct call with two arguments
+      await removeTask(task.id); // Call removeTask with only taskId
       const updatedTask = { ...task, status };
       await addTask(updatedTask);
       setDropdownOpen(false);
@@ -36,7 +36,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   };
 
   const handleDelete = async () => {
-    await removeTask(task.id, task.status); // Correct call with two arguments
+    await removeTask(task.id); // Call removeTask with only taskId
   };
 
   const getPriorityClasses = (priority: string) => {

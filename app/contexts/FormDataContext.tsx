@@ -23,9 +23,9 @@ interface FormDataContextType {
   formData: Partial<Task>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<Task>>>;
   tasks: { [key: string]: Task[] };
-  addTask: (task: Task) => void;
-  removeTask: (taskId: string, status: string) => Promise<void>; // Updated signature
-  updateTask: (task: Task) => void;
+  addTask: (task: Task) => Promise<void>;
+  removeTask: (taskId: string) => Promise<void>;
+  updateTask: (task: Task) => Promise<void>;
 }
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
@@ -96,7 +96,6 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeTask = async (taskId: string) => {
     try {
-      // You might need to adjust the logic if the status is used in the removal process
       await deleteDoc(doc(db, "tasks", taskId));
     } catch (e) {
       console.error("Error removing document: ", e);
@@ -105,8 +104,14 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateTask = async (task: Task) => {
     try {
-      // Cast task to the type expected by updateDoc
-      await updateDoc(doc(db, "tasks", task.id), task as Record<string, any>);
+      // No need to cast, Task type is used directly
+      await updateDoc(doc(db, "tasks", task.id), {
+        title: task.title,
+        description: task.description,
+        date: task.date,
+        status: task.status,
+        priority: task.priority,
+      });
     } catch (e) {
       console.error("Error updating document: ", e);
     }
