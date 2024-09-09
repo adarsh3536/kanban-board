@@ -1,36 +1,36 @@
-import React from "react";
-import { FaTrash } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import Dropdown from "./Dropdown";
 import { useFormData } from "@/app/contexts/FormDataContext";
+import ModalForm from "../modal/ModalForm"; // Ensure this path is correct
+
+// Define Task interface
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  status: string;
+  priority: string;
+}
 
 interface TaskProps {
-  task: {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    status: string;
-    priority: string;
-  };
+  task: Task; // Use Task type for the task prop
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [modalTask, setModalTask] = useState<Partial<Task> | null>(null); // State to manage the task being edited
   const { addTask, removeTask } = useFormData();
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const handleStatusChange = async (status: string) => {
     if (status !== task.status) {
-      // Remove task from current status list
       await removeTask(task.id, task.status); // Correct call with two arguments
-
-      // Update task status
       const updatedTask = { ...task, status };
-
-      // Add task to new status list
       await addTask(updatedTask);
-
       setDropdownOpen(false);
     }
   };
@@ -39,7 +39,6 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     await removeTask(task.id, task.status); // Correct call with two arguments
   };
 
-  // Define styles based on priority
   const getPriorityClasses = (priority: string) => {
     switch (priority) {
       case "High":
@@ -53,7 +52,6 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     }
   };
 
-  // Define styles based on status
   const getStatusClasses = (status: string) => {
     switch (status) {
       case "Completed":
@@ -69,6 +67,16 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
   const priorityClasses = getPriorityClasses(task.priority);
   const statusBarClasses = getStatusClasses(task.status);
+
+  const handleEdit = () => {
+    setModalTask(task); // Set the task data to be edited
+    setIsModalOpen(true); // Open the modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setModalTask(null); // Clear the task data
+  };
 
   return (
     <div className="relative max-w-md mx-auto bg-white border border-black rounded-2xl overflow-visible mb-6">
@@ -113,6 +121,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             📆 {task.date || "No date selected"}
           </p>
           <button
+            onClick={handleEdit}
+            className="text-blue-600 hover:text-blue-800 ml-32"
+            aria-label="Edit Task"
+          >
+            <FaEdit size={16} />
+          </button>
+          <button
             onClick={handleDelete}
             className="text-red-600 hover:text-red-800"
             aria-label="Delete Task"
@@ -121,6 +136,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           </button>
         </div>
       </div>
+
+      {/* Modal for editing task */}
+      {isModalOpen && (
+        <ModalForm closeModal={closeModal} initialTask={modalTask as Task} />
+      )}
     </div>
   );
 };

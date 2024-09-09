@@ -1,0 +1,13 @@
+/* Tailwind CSS or your preferred CSS-in-JS solution */
+
+.create-modal {
+  /* Styling for Create Task modal */
+  max-width: 500px;
+  background-color: #f9f9f9; /* Example color for create task */
+}
+
+.edit-modal {
+  /* Styling for Edit Task modal */
+  max-width: 600px;
+  background-color: #fff; /* Example color for edit task */
+}
