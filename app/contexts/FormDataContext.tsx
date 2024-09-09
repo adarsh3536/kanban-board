@@ -24,7 +24,7 @@ interface FormDataContextType {
   setFormData: React.Dispatch<React.SetStateAction<Partial<Task>>>;
   tasks: { [key: string]: Task[] };
   addTask: (task: Task) => void;
-  removeTask: (taskId: string, status: string) => void;
+  removeTask: (taskId: string, status: string) => Promise<void>; // Updated signature
   updateTask: (task: Task) => void;
 }
 
@@ -94,8 +94,9 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const removeTask = async (taskId: string) => {
+  const removeTask = async (taskId: string, status: string) => {
     try {
+      // You might need to adjust the logic if the status is used in the removal process
       await deleteDoc(doc(db, "tasks", taskId));
     } catch (e) {
       console.error("Error removing document: ", e);
@@ -104,7 +105,8 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateTask = async (task: Task) => {
     try {
-      await updateDoc(doc(db, "tasks", task.id), task);
+      // Cast task to the type expected by updateDoc
+      await updateDoc(doc(db, "tasks", task.id), task as Record<string, any>);
     } catch (e) {
       console.error("Error updating document: ", e);
     }

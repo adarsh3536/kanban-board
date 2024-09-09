@@ -5,6 +5,7 @@ import "./Dropdown.css";
 // Define props for the Dropdown component
 interface DropdownProps {
   onStatusChange: (status: string) => void;
+  onDelete?: () => Promise<void>;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ onStatusChange }) => {
