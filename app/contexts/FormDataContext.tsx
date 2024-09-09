@@ -94,7 +94,7 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const removeTask = async (taskId: string, status: string) => {
+  const removeTask = async (taskId: string) => {
     try {
       // You might need to adjust the logic if the status is used in the removal process
       await deleteDoc(doc(db, "tasks", taskId));
