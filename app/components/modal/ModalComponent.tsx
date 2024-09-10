@@ -42,13 +42,13 @@ const ModalComponent: React.FC = () => {
       {/* Modal */}
       {open && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 "
           onClick={handleClose}
         >
           {/* Modal Content */}
           <div
             ref={modalRef}
-            className="bg-white p-8 rounded-lg shadow-lg w-full h-[96vh] max-w-[800px] relative overflow-auto"
+            // className="bg-white p-8 rounded-lg shadow-lg w-full h-[96vh] max-w-[800px] relative overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <ModalForm closeModal={handleClose} />

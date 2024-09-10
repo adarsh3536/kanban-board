@@ -11,6 +11,18 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// Ensure that Firebase config values are present
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  throw new Error(
+    "Firebase configuration is missing essential values. Check your environment variables."
+  );
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firestore
 export const db = getFirestore(app);
+
+// Optional: Log Firestore initialization status
+console.log("Firebase initialized with projectId:", firebaseConfig.projectId);

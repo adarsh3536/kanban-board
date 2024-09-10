@@ -10,7 +10,8 @@ function AppHeader() {
           alt="Board Infinity Logo"
           width={96}
           height={96}
-          className="object-contain" // Ensures the image is resized properly within the given width/height
+          className="object-contain"
+          priority
         />
       </div>
     </div>

@@ -63,22 +63,27 @@ const ModalForm: React.FC<ModalFormProps> = ({ closeModal, initialTask }) => {
       priority: formData.priority || "",
     };
 
-    if (initialTask) {
-      // Update task if initialTask is provided
-      await updateTask(taskData);
-    } else {
-      // Add new task if no initialTask
-      await addTask(taskData);
+    try {
+      if (initialTask) {
+        console.log("Updating task with data:", taskData);
+        await updateTask(taskData);
+      } else {
+        console.log("Adding new task with data:", taskData);
+        await addTask(taskData);
+      }
+      console.log("Task added/updated successfully");
+      setFormData({
+        title: "",
+        description: "",
+        date: "",
+        status: "",
+        priority: "",
+      });
+      console.log("Clearing form data and calling closeModal");
+      closeModal(); // Close modal after form submission
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
-
-    setFormData({
-      title: "",
-      description: "",
-      date: "",
-      status: "",
-      priority: "",
-    });
-    closeModal(); // Close modal after form submission
   };
 
   return (
